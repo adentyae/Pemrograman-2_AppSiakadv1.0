@@ -33,15 +33,16 @@ public class FrMenu extends javax.swing.JFrame {
     }
     
     private void disableMenu(){
-        mnSistem.setEnabled(false);
-        mnMaster.setEnabled(false);
-        mnMahasiswa.setEnabled(false);
+        menuSistem(false);
+        menuMaster(false);
+        menuAkademik(false);
+        menuMahasiswa(false);
+        menuPegawai(false);
+        menuUKT(false);
     }
     
     private void enableMenu(){
-        mnSistem.setEnabled(true);
-        mnMaster.setEnabled(true);
-        mnMahasiswa.setEnabled(true);
+        
     }
     
     private void aksiLogin() {
@@ -55,8 +56,21 @@ public class FrMenu extends javax.swing.JFrame {
             ResultSet res = stat.executeQuery(sqlselect);
             
             if(res.first()){
-                enableMenu();
+                vnama_user = res.getString("nama_user");
+                vlev_user = res.getString("lev_user");
+                lbKeterangan.setText("ID. User : "+vid_user+" ... "+vnama_user+" | Lev. User : "+vlev_user+"");
                 panelLogin.setVisible(false);
+                if(vlev_user.equals("Administrator")){
+                    userAdmin();
+                }else if(vlev_user.equals("Staf Akademik")){
+                    userAkademik();
+                }else if(vlev_user.equals("Staf Kepegawaian")){
+                    userKepegawaian();
+                }else if(vlev_user.equals("Staf Kemahasiswaan")){
+                    userKemahasiswaan();
+                }else if(vlev_user.equals("Staf Bag. Pembayaran UKT")){
+                    userPembayaranUKT();
+                }
             }else{
                 JOptionPane.showMessageDialog(this, "ID. User dan Password salah", "Informasi", JOptionPane.INFORMATION_MESSAGE);
             }
@@ -64,6 +78,83 @@ public class FrMenu extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Eror method aksiLogin() : " + ex);
         } 
     }
+    
+    void userAdmin(){
+        menuSistem(true);
+        menuMaster(true);
+        menuAkademik(true);
+        menuMahasiswa(true);
+        menuPegawai(true);
+        menuUKT(true);
+        
+    }
+    
+    void userAkademik(){
+        menuSistem(true);
+        mnUser.setText("Ubah Password");
+        menuMaster(true);
+        menuAkademik(true);
+        menuMahasiswa(false);
+        menuPegawai(false);
+        menuUKT(false);
+    }
+    
+    void userKemahasiswaan(){
+        menuSistem(true);
+        mnUser.setText("Ubah Password");
+        menuMaster(false);
+        menuAkademik(false);
+        menuMahasiswa(true);
+        menuPegawai(false);
+        menuUKT(false);
+    }
+    
+    void userKepegawaian(){
+        menuSistem(true);
+        mnUser.setText("Ubah Password");
+        menuMaster(false);
+        menuAkademik(false);
+        menuMahasiswa(false);
+        menuPegawai(true);
+        menuUKT(false);
+    }
+    
+    void userPembayaranUKT(){
+        menuSistem(true);
+        mnUser.setText("Ubah Password");
+        menuMaster(false);
+        menuAkademik(false);
+        menuMahasiswa(false);
+        menuPegawai(false);
+        menuUKT(true);
+    }
+    
+    void menuSistem(Boolean sta){
+        mnSistem.setVisible(sta);
+    }
+    
+   void menuMaster(Boolean sta){
+       mnMaster.setVisible(sta);
+   }
+    
+    void menuAkademik(Boolean sta){
+        mnAkademik.setVisible(sta);
+    }
+    
+    void menuMahasiswa(Boolean sta){
+        mnMahasiswa.setVisible(sta);
+    }
+    
+    void menuPegawai(Boolean sta){
+        mnPegawai.setVisible(sta);
+    }
+    
+    void menuUKT(Boolean sta){
+        mnUKT.setVisible(sta);
+    }
+    
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -96,11 +187,48 @@ public class FrMenu extends javax.swing.JFrame {
         mnKeluar = new javax.swing.JMenuItem();
         mnMaster = new javax.swing.JMenu();
         mnTA = new javax.swing.JMenuItem();
+        jSeparator11 = new javax.swing.JPopupMenu.Separator();
         mnJurusan = new javax.swing.JMenuItem();
         mnProdi = new javax.swing.JMenuItem();
+        jSeparator12 = new javax.swing.JPopupMenu.Separator();
+        jMenuItem10 = new javax.swing.JMenuItem();
+        mnAkademik = new javax.swing.JMenu();
+        mnSetThAkademik = new javax.swing.JMenuItem();
+        jSeparator7 = new javax.swing.JPopupMenu.Separator();
+        mnDataKelMK = new javax.swing.JMenuItem();
+        mnDataMasterMK = new javax.swing.JMenuItem();
+        mnDataMkSemesterAkhir = new javax.swing.JMenuItem();
+        jSeparator8 = new javax.swing.JPopupMenu.Separator();
+        mnDataJadwalMK = new javax.swing.JMenuItem();
+        mnPegawai = new javax.swing.JMenu();
+        mnDataPegawai = new javax.swing.JMenuItem();
+        jSeparator9 = new javax.swing.JPopupMenu.Separator();
+        mnDataPegawaiMutasi = new javax.swing.JMenuItem();
+        mnDataPegawaiKeluar = new javax.swing.JMenuItem();
+        jSeparator10 = new javax.swing.JPopupMenu.Separator();
+        mnDataTransaksiJabatan = new javax.swing.JMenuItem();
+        jSeparator14 = new javax.swing.JPopupMenu.Separator();
+        mnLaporanDataPegawai = new javax.swing.JMenuItem();
         mnMahasiswa = new javax.swing.JMenu();
         mnDataMahasiswa = new javax.swing.JMenuItem();
+        mnDataNilaiMhs = new javax.swing.JMenuItem();
+        jSeparator5 = new javax.swing.JPopupMenu.Separator();
+        mnDataMahasiswaCuti = new javax.swing.JMenuItem();
+        jMenu1 = new javax.swing.JMenu();
+        mnDataMahasiswaDO = new javax.swing.JMenuItem();
+        jSeparator6 = new javax.swing.JPopupMenu.Separator();
+        mnDataMahasiswaMundur = new javax.swing.JMenuItem();
+        jSeparator4 = new javax.swing.JPopupMenu.Separator();
+        mnDataMahasiswaAlumni = new javax.swing.JMenuItem();
+        jSeparator2 = new javax.swing.JPopupMenu.Separator();
         mnLaporanDataMahasiswa = new javax.swing.JMenuItem();
+        mnUKT = new javax.swing.JMenu();
+        mnMasterUKT = new javax.swing.JMenuItem();
+        mnDataUKTMhs = new javax.swing.JMenuItem();
+        jSeparator3 = new javax.swing.JPopupMenu.Separator();
+        mnDataTransaksiUKT = new javax.swing.JMenuItem();
+        jSeparator13 = new javax.swing.JPopupMenu.Separator();
+        mnLapTransaksiUKT = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("SIAKAD v.1.0.1");
@@ -115,7 +243,7 @@ public class FrMenu extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(lbKeterangan, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(lbKeterangan, javax.swing.GroupLayout.PREFERRED_SIZE, 545, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -133,6 +261,11 @@ public class FrMenu extends javax.swing.JFrame {
 
         txtPass.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true), "Password"));
         txtPass.setOpaque(false);
+        txtPass.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtPassActionPerformed(evt);
+            }
+        });
 
         btnLogin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/login-blue.png"))); // NOI18N
         btnLogin.setText("Login");
@@ -233,7 +366,7 @@ public class FrMenu extends javax.swing.JFrame {
         jpMenuLayout.setVerticalGroup(
             jpMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpMenuLayout.createSequentialGroup()
-                .addContainerGap(100, Short.MAX_VALUE)
+                .addContainerGap(102, Short.MAX_VALUE)
                 .addGroup(jpMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jpMenuLayout.createSequentialGroup()
                         .addComponent(panelLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -294,6 +427,7 @@ public class FrMenu extends javax.swing.JFrame {
             }
         });
         mnMaster.add(mnTA);
+        mnMaster.add(jSeparator11);
 
         mnJurusan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/2 - master small.png"))); // NOI18N
         mnJurusan.setText("Jurusan");
@@ -312,8 +446,83 @@ public class FrMenu extends javax.swing.JFrame {
             }
         });
         mnMaster.add(mnProdi);
+        mnMaster.add(jSeparator12);
+
+        jMenuItem10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/2 - master small.png"))); // NOI18N
+        jMenuItem10.setText("Jabatan Pegawai");
+        mnMaster.add(jMenuItem10);
 
         jMenuBar1.add(mnMaster);
+
+        mnAkademik.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/5 - Akademik.png"))); // NOI18N
+        mnAkademik.setText("Akademik");
+
+        mnSetThAkademik.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/5 - tahun akademik.png"))); // NOI18N
+        mnSetThAkademik.setText("Set Tahun Akademik");
+        mnAkademik.add(mnSetThAkademik);
+        mnAkademik.add(jSeparator7);
+
+        mnDataKelMK.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/5 - akademik-small.png"))); // NOI18N
+        mnDataKelMK.setText("Data Kelompok Mata Kuliah");
+        mnDataKelMK.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnDataKelMKActionPerformed(evt);
+            }
+        });
+        mnAkademik.add(mnDataKelMK);
+
+        mnDataMasterMK.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/5 - akademik-small.png"))); // NOI18N
+        mnDataMasterMK.setText("Data Master Mata Kuliah");
+        mnAkademik.add(mnDataMasterMK);
+
+        mnDataMkSemesterAkhir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/5 - akademik-small.png"))); // NOI18N
+        mnDataMkSemesterAkhir.setText("Data Mata Kuliah Semester Akhir");
+        mnDataMkSemesterAkhir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnDataMkSemesterAkhirActionPerformed(evt);
+            }
+        });
+        mnAkademik.add(mnDataMkSemesterAkhir);
+        mnAkademik.add(jSeparator8);
+
+        mnDataJadwalMK.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/5 - akademik-small.png"))); // NOI18N
+        mnDataJadwalMK.setText("Data Jadwal Mata Kuliah");
+        mnDataJadwalMK.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnDataJadwalMKActionPerformed(evt);
+            }
+        });
+        mnAkademik.add(mnDataJadwalMK);
+
+        jMenuBar1.add(mnAkademik);
+
+        mnPegawai.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/4 - Pegawai.png"))); // NOI18N
+        mnPegawai.setText("Pegawai");
+
+        mnDataPegawai.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/4 - pegawai-small.png"))); // NOI18N
+        mnDataPegawai.setText("Data Pegawai");
+        mnPegawai.add(mnDataPegawai);
+        mnPegawai.add(jSeparator9);
+
+        mnDataPegawaiMutasi.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/4 - pegawai-small.png"))); // NOI18N
+        mnDataPegawaiMutasi.setText("Data Pegawai Mutasi");
+        mnPegawai.add(mnDataPegawaiMutasi);
+
+        mnDataPegawaiKeluar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/4 - pegawai-small.png"))); // NOI18N
+        mnDataPegawaiKeluar.setText("Data Pegawai Keluar");
+        mnPegawai.add(mnDataPegawaiKeluar);
+        mnPegawai.add(jSeparator10);
+
+        mnDataTransaksiJabatan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/4 - pegawai-small.png"))); // NOI18N
+        mnDataTransaksiJabatan.setText("Dataa Transaksi Jabatan");
+        mnPegawai.add(mnDataTransaksiJabatan);
+        mnPegawai.add(jSeparator14);
+
+        mnLaporanDataPegawai.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/report-small2.png"))); // NOI18N
+        mnLaporanDataPegawai.setText("Laporan Data Pegawai");
+        mnPegawai.add(mnLaporanDataPegawai);
+
+        jMenuBar1.add(mnPegawai);
 
         mnMahasiswa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/3 - Mahasiswa.png"))); // NOI18N
         mnMahasiswa.setText("Mahasiswa");
@@ -327,6 +536,55 @@ public class FrMenu extends javax.swing.JFrame {
         });
         mnMahasiswa.add(mnDataMahasiswa);
 
+        mnDataNilaiMhs.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/nilai-mahasiswa-small.png"))); // NOI18N
+        mnDataNilaiMhs.setText("Data Nilai Mahasiswa");
+        mnMahasiswa.add(mnDataNilaiMhs);
+        mnMahasiswa.add(jSeparator5);
+
+        mnDataMahasiswaCuti.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/3 - mahasiswa small.png"))); // NOI18N
+        mnDataMahasiswaCuti.setText("Data Mahasiswa Cuti");
+        mnDataMahasiswaCuti.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnDataMahasiswaCutiActionPerformed(evt);
+            }
+        });
+        mnMahasiswa.add(mnDataMahasiswaCuti);
+
+        jMenu1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/3 - mahasiswa small.png"))); // NOI18N
+        jMenu1.setText("Data Mahasiswa Keluar");
+
+        mnDataMahasiswaDO.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/3 - mahasiswa small.png"))); // NOI18N
+        mnDataMahasiswaDO.setText("Drop Out");
+        mnDataMahasiswaDO.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnDataMahasiswaDOActionPerformed(evt);
+            }
+        });
+        jMenu1.add(mnDataMahasiswaDO);
+        jMenu1.add(jSeparator6);
+
+        mnDataMahasiswaMundur.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/3 - mahasiswa small.png"))); // NOI18N
+        mnDataMahasiswaMundur.setText("Mengundurkan Diri");
+        mnDataMahasiswaMundur.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnDataMahasiswaMundurActionPerformed(evt);
+            }
+        });
+        jMenu1.add(mnDataMahasiswaMundur);
+
+        mnMahasiswa.add(jMenu1);
+        mnMahasiswa.add(jSeparator4);
+
+        mnDataMahasiswaAlumni.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/3 - mahasiswa small.png"))); // NOI18N
+        mnDataMahasiswaAlumni.setText("Data Mahasiswa Alumni");
+        mnDataMahasiswaAlumni.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnDataMahasiswaAlumniActionPerformed(evt);
+            }
+        });
+        mnMahasiswa.add(mnDataMahasiswaAlumni);
+        mnMahasiswa.add(jSeparator2);
+
         mnLaporanDataMahasiswa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/report-small2.png"))); // NOI18N
         mnLaporanDataMahasiswa.setText("Laporan Data Mahasiswa");
         mnLaporanDataMahasiswa.addActionListener(new java.awt.event.ActionListener() {
@@ -337,6 +595,29 @@ public class FrMenu extends javax.swing.JFrame {
         mnMahasiswa.add(mnLaporanDataMahasiswa);
 
         jMenuBar1.add(mnMahasiswa);
+
+        mnUKT.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/6 - UKT.png"))); // NOI18N
+        mnUKT.setText("Uang Kuliah");
+
+        mnMasterUKT.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/6 - transaksi-ukt-small.png"))); // NOI18N
+        mnMasterUKT.setText("Master Uang Kuliah");
+        mnUKT.add(mnMasterUKT);
+
+        mnDataUKTMhs.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/6 - ukt-mahasiswa-small.png"))); // NOI18N
+        mnDataUKTMhs.setText("Data UKT Mahasiswa");
+        mnUKT.add(mnDataUKTMhs);
+        mnUKT.add(jSeparator3);
+
+        mnDataTransaksiUKT.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/6 - transaksi-ukt-small.png"))); // NOI18N
+        mnDataTransaksiUKT.setText("Data Transaksi UKT");
+        mnUKT.add(mnDataTransaksiUKT);
+        mnUKT.add(jSeparator13);
+
+        mnLapTransaksiUKT.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/report-small2.png"))); // NOI18N
+        mnLapTransaksiUKT.setText("Laporan Transaksi UKT");
+        mnUKT.add(mnLapTransaksiUKT);
+
+        jMenuBar1.add(mnUKT);
 
         setJMenuBar(jMenuBar1);
 
@@ -418,8 +699,49 @@ public class FrMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_mnDataMahasiswaActionPerformed
 
     private void mnLaporanDataMahasiswaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnLaporanDataMahasiswaActionPerformed
-        // TODO add your handling code here:
+        IfrLapMahasiswa fr = new IfrLapMahasiswa();
+        jpMenu.add(fr);
+        fr.setVisible(true);
     }//GEN-LAST:event_mnLaporanDataMahasiswaActionPerformed
+
+    private void txtPassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPassActionPerformed
+        if(txtIdUser.getText().equals("")){
+            JOptionPane.showMessageDialog(this, "ID. User belum diisi : ", "Informasi", JOptionPane.INFORMATION_MESSAGE);
+            
+        }else if(txtPass.getText().equals("")){
+            JOptionPane.showMessageDialog(this, "Password belum diisi : ", "Informasi", JOptionPane.INFORMATION_MESSAGE);
+        }else {
+            aksiLogin();
+        }
+    }//GEN-LAST:event_txtPassActionPerformed
+
+    private void mnDataMahasiswaCutiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnDataMahasiswaCutiActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_mnDataMahasiswaCutiActionPerformed
+
+    private void mnDataMahasiswaDOActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnDataMahasiswaDOActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_mnDataMahasiswaDOActionPerformed
+
+    private void mnDataMahasiswaMundurActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnDataMahasiswaMundurActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_mnDataMahasiswaMundurActionPerformed
+
+    private void mnDataMahasiswaAlumniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnDataMahasiswaAlumniActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_mnDataMahasiswaAlumniActionPerformed
+
+    private void mnDataKelMKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnDataKelMKActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_mnDataKelMKActionPerformed
+
+    private void mnDataJadwalMKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnDataJadwalMKActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_mnDataJadwalMKActionPerformed
+
+    private void mnDataMkSemesterAkhirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnDataMkSemesterAkhirActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_mnDataMkSemesterAkhirActionPerformed
 
     /**
      * @param args the command line arguments
@@ -443,21 +765,58 @@ public class FrMenu extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem10;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JPopupMenu.Separator jSeparator10;
+    private javax.swing.JPopupMenu.Separator jSeparator11;
+    private javax.swing.JPopupMenu.Separator jSeparator12;
+    private javax.swing.JPopupMenu.Separator jSeparator13;
+    private javax.swing.JPopupMenu.Separator jSeparator14;
+    private javax.swing.JPopupMenu.Separator jSeparator2;
+    private javax.swing.JPopupMenu.Separator jSeparator3;
+    private javax.swing.JPopupMenu.Separator jSeparator4;
+    private javax.swing.JPopupMenu.Separator jSeparator5;
+    private javax.swing.JPopupMenu.Separator jSeparator6;
+    private javax.swing.JPopupMenu.Separator jSeparator7;
+    private javax.swing.JPopupMenu.Separator jSeparator8;
+    private javax.swing.JPopupMenu.Separator jSeparator9;
     private javax.swing.JDesktopPane jpMenu;
     private javax.swing.JLabel lbKeterangan;
+    private javax.swing.JMenu mnAkademik;
+    private javax.swing.JMenuItem mnDataJadwalMK;
+    private javax.swing.JMenuItem mnDataKelMK;
     private javax.swing.JMenuItem mnDataMahasiswa;
+    private javax.swing.JMenuItem mnDataMahasiswaAlumni;
+    private javax.swing.JMenuItem mnDataMahasiswaCuti;
+    private javax.swing.JMenuItem mnDataMahasiswaDO;
+    private javax.swing.JMenuItem mnDataMahasiswaMundur;
+    private javax.swing.JMenuItem mnDataMasterMK;
+    private javax.swing.JMenuItem mnDataMkSemesterAkhir;
+    private javax.swing.JMenuItem mnDataNilaiMhs;
+    private javax.swing.JMenuItem mnDataPegawai;
+    private javax.swing.JMenuItem mnDataPegawaiKeluar;
+    private javax.swing.JMenuItem mnDataPegawaiMutasi;
+    private javax.swing.JMenuItem mnDataTransaksiJabatan;
+    private javax.swing.JMenuItem mnDataTransaksiUKT;
+    private javax.swing.JMenuItem mnDataUKTMhs;
     private javax.swing.JMenuItem mnJurusan;
     private javax.swing.JMenuItem mnKeluar;
+    private javax.swing.JMenuItem mnLapTransaksiUKT;
     private javax.swing.JMenuItem mnLaporanDataMahasiswa;
+    private javax.swing.JMenuItem mnLaporanDataPegawai;
     private javax.swing.JMenu mnMahasiswa;
     private javax.swing.JMenu mnMaster;
+    private javax.swing.JMenuItem mnMasterUKT;
+    private javax.swing.JMenu mnPegawai;
     private javax.swing.JMenuItem mnProdi;
+    private javax.swing.JMenuItem mnSetThAkademik;
     private javax.swing.JMenu mnSistem;
     private javax.swing.JMenuItem mnTA;
+    private javax.swing.JMenu mnUKT;
     private javax.swing.JMenuItem mnUser;
     private javax.swing.JTabbedPane panelLogin;
     private javax.swing.JTextField txtIdUser;
