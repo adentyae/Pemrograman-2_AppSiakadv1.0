@@ -58,7 +58,7 @@ public class FrMenu extends javax.swing.JFrame {
             if(res.first()){
                 vnama_user = res.getString("nama_user");
                 vlev_user = res.getString("lev_user");
-                lbKeterangan.setText("ID. User : "+vid_user+" ... "+vnama_user+" | Lev. User : "+vlev_user+"");
+                lbKeterangan.setText("ID. User : "+vid_user+" - "+vnama_user+" | Lev. User : "+vlev_user+"");
                 panelLogin.setVisible(false);
                 if(vlev_user.equals("Administrator")){
                     userAdmin();
@@ -92,6 +92,7 @@ public class FrMenu extends javax.swing.JFrame {
     void userAkademik(){
         menuSistem(true);
         mnUser.setText("Ubah Password");
+        mnUser.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/key.png")));
         menuMaster(true);
         menuAkademik(true);
         menuMahasiswa(false);
@@ -102,6 +103,7 @@ public class FrMenu extends javax.swing.JFrame {
     void userKemahasiswaan(){
         menuSistem(true);
         mnUser.setText("Ubah Password");
+        mnUser.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/key.png")));
         menuMaster(false);
         menuAkademik(false);
         menuMahasiswa(true);
@@ -112,6 +114,7 @@ public class FrMenu extends javax.swing.JFrame {
     void userKepegawaian(){
         menuSistem(true);
         mnUser.setText("Ubah Password");
+        mnUser.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/key.png")));
         menuMaster(false);
         menuAkademik(false);
         menuMahasiswa(false);
@@ -122,6 +125,7 @@ public class FrMenu extends javax.swing.JFrame {
     void userPembayaranUKT(){
         menuSistem(true);
         mnUser.setText("Ubah Password");
+        mnUser.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/key.png")));
         menuMaster(false);
         menuAkademik(false);
         menuMahasiswa(false);
@@ -236,6 +240,11 @@ public class FrMenu extends javax.swing.JFrame {
         jPanel1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
 
         lbKeterangan.setText("ID. User : ....... | Lev. User : ........");
+        lbKeterangan.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                lbKeteranganMouseEntered(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -669,9 +678,16 @@ public class FrMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_btnBatalActionPerformed
 
     private void mnUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnUserActionPerformed
-        IfrUser fr = new IfrUser();
-        jpMenu.add(fr);
-        fr.setVisible(true);
+        if(mnUser.getText().equals("Ubah Password")){
+            jdUbahPassword fr = new jdUbahPassword(null, true, vid_user);
+            fr.setVisible(true);
+        }else{
+            IfrUser fr = new IfrUser();
+            jpMenu.add(fr);
+            fr.setVisible(true);
+        }
+        
+        
     }//GEN-LAST:event_mnUserActionPerformed
 
     private void mnKeluarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnKeluarActionPerformed
@@ -742,6 +758,10 @@ public class FrMenu extends javax.swing.JFrame {
     private void mnDataMkSemesterAkhirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnDataMkSemesterAkhirActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_mnDataMkSemesterAkhirActionPerformed
+
+    private void lbKeteranganMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbKeteranganMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lbKeteranganMouseEntered
 
     /**
      * @param args the command line arguments

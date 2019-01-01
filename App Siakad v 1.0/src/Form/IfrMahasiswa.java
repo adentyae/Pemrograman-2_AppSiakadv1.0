@@ -367,7 +367,7 @@ public class IfrMahasiswa extends javax.swing.JInternalFrame {
                 try{
                     InputStream is = new FileInputStream(imageFile);
                      _Cnn = getCnn.getConnection();
-                    sqlinsert = "Update tbmahasiswa set kd_prodi=?, " + " nama_mhs=?, jns_kel=? " + " tmp_lahir=?, tgl_lahir=? " + " agama=?, nama_ayah=? " + " nama_ibu=?, alamat=? " + " no_telepon=? where nim'"+vnim+"'";
+                    sqlinsert = "Update tbmahasiswa set kd_prodi=?, " + " nama_mhs=?, jns_kel=? " + " tmp_lahir=?, tgl_lahir=? " + " agama=?, nama_ayah=? " + " nama_ibu=?, alamat=? " + " no_telepon=?, foto=? where nim'"+vnim+"'";
                     PreparedStatement stat = _Cnn.prepareStatement(sqlinsert);
                     stat.setString(1, vkd_prodi);
                     stat.setString(2, vnama_mhs);
